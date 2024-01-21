@@ -4,15 +4,14 @@ class Node:
     self.left = left
     self.right = right
 
-three = Node(3);
-five = Node(5);
-four = Node(4, three, five);
+three = Node(3)
+five = Node(5)
+four = Node(4, three, five)
 
-eight = Node(8);
-seven = Node(7, None, eight);
+eight = Node(8)
+seven = Node(7, None, eight)
 
-six_root = Node(6, four, seven);
-
+six_root = Node(6, four, seven)
 
 def pre_order(node: Node) -> None:
   if node is None:
