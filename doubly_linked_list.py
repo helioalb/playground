@@ -8,34 +8,55 @@ class Node:
 class DoublyLinkedList:
   def __init__(self):
     self.head = None
+    self.tail = None
 
   def add(self, key):
     if self.head is None:
-      self.head = Node(key)
+      self.head = self.tail = Node(key)
     elif key < self.head.key:
       self.head.previous = Node(key, None, self.head)
       self.head = self.head.previous
     else:
       cursor = self.head
-      while cursor.key < key and cursor.next is not None:
+      while cursor.next is not None and cursor.next.key <= key:
         cursor = cursor.next
 
-      cursor.previous.next = cursor.previous = Node(key, cursor.previous, cursor)
+      if cursor.next is None:
+        self.tail = cursor.next = Node(key, cursor, cursor.next)
+      else:
+        cursor.next = cursor.next.previous = Node(key, cursor, cursor.next)
 
-  def show(self):
+  def show_forward(self):
     cursor = self.head
     while cursor is not None:
       print(cursor.key)
       cursor = cursor.next
 
+  def show_backward(self):
+    cursor = self.tail
+    while cursor is not None:
+      print(cursor.key)
+      cursor = cursor.previous
 
-doubly_linked_list = DoublyLinkedList()
+def main():
+  doubly_linked_list = DoublyLinkedList()
 
-doubly_linked_list.add(5)
-doubly_linked_list.add(4)
-doubly_linked_list.add(2)
-doubly_linked_list.add(3)
-doubly_linked_list.add(5)
+  doubly_linked_list.add(5)
+  doubly_linked_list.add(4)
+  doubly_linked_list.add(2)
+  doubly_linked_list.add(3)
+  doubly_linked_list.add(4)
+  doubly_linked_list.add(5)
+  doubly_linked_list.add(6)
+  doubly_linked_list.add(1)
+  doubly_linked_list.add(7)
+  doubly_linked_list.add(8)
 
-doubly_linked_list.show()
+  print('forward')
+  doubly_linked_list.show_forward()
 
+  print('backward')
+  doubly_linked_list.show_backward()
+
+if __name__ == "__main__":
+  main()
