@@ -26,17 +26,39 @@ class DoublyLinkedList:
       else:
         cursor.next = cursor.next.previous = Node(key, cursor, cursor.next)
 
-  def show_forward(self):
-    cursor = self.head
-    while cursor is not None:
-      print(cursor.key)
-      cursor = cursor.next
+  def create_forward_iterator(self):
+    return ForwardIterator(self)
 
-  def show_backward(self):
-    cursor = self.tail
-    while cursor is not None:
-      print(cursor.key)
-      cursor = cursor.previous
+  def create_backward_iterator(self):
+    return BackwardIterator(self)
+
+class ForwardIterator:
+
+  def __init__(self, doubly_linked_list):
+    self.cursor = doubly_linked_list.head
+
+  def next(self):
+    if self.cursor is not None:
+      current = self.cursor
+      self.cursor = self.cursor.next
+      return current
+
+  def has_next(self):
+    return self.cursor is not None
+
+class BackwardIterator:
+
+  def __init__(self, doubly_linked_list):
+    self.cursor = doubly_linked_list.tail
+
+  def next(self):
+    if self.cursor is not None:
+      current = self.cursor
+      self.cursor = self.cursor.previous
+      return current
+
+  def has_next(self):
+    return self.cursor is not None
 
 def main():
   doubly_linked_list = DoublyLinkedList()
@@ -53,10 +75,16 @@ def main():
   doubly_linked_list.add(8)
 
   print('forward')
-  doubly_linked_list.show_forward()
+  iterator = doubly_linked_list.create_forward_iterator()
+
+  while iterator.has_next():
+    print(iterator.next().key)
 
   print('backward')
-  doubly_linked_list.show_backward()
+  iterator = doubly_linked_list.create_backward_iterator()
+
+  while iterator.has_next():
+    print(iterator.next().key)
 
 if __name__ == "__main__":
   main()
