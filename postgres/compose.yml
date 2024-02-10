@@ -8,9 +8,20 @@ services:
     environment:
       POSTGRES_USER: admin
       POSTGRES_PASSWORD: admin
-
-  adminer:
-    image: adminer
-    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    hostname: localhost
     ports:
-      - 9000:8080
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - 9090:80
+
+volumes:
+  pgdata:
