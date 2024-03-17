@@ -13,7 +13,7 @@ resource "aws_subnet" "public_1" {
   cidr_block        = "10.0.0.0/24"
   availability_zone = "us-east-1a"
   tags = {
-    Name = "Public 1"
+    Name = "Public Subnet 1"
   }
 
   provider = aws.virginia
@@ -25,7 +25,7 @@ resource "aws_subnet" "private_1" {
   availability_zone = "us-east-1a"
 
   tags = {
-    Name = "Private 1"
+    Name = "Private Subnet 1"
   }
 
   provider = aws.virginia
@@ -36,7 +36,7 @@ resource "aws_subnet" "public_2" {
   cidr_block        = "10.0.2.0/24"
   availability_zone = "us-east-1b"
   tags = {
-    Name = "Public 2"
+    Name = "Public Subnet 2"
   }
 
   provider = aws.virginia
@@ -48,7 +48,7 @@ resource "aws_subnet" "private_2" {
   availability_zone = "us-east-1b"
 
   tags = {
-    Name = "Private 2"
+    Name = "Private Subnet 2"
   }
 
   provider = aws.virginia
