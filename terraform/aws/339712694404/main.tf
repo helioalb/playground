@@ -112,6 +112,8 @@ resource "aws_vpc_security_group_ingress_rule" "bastion_ssh" {
   tags = {
     Name = "SSH"
   }
+
+  provider = aws.virginia
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
@@ -123,4 +125,21 @@ resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
   tags = {
     Name = "All traffic"
   }
+
+  provider = aws.virginia
+}
+
+resource "aws_instance" "bastion" {
+  ami                         = "ami-080e1f13689e07408"
+  instance_type               = "t2.micro"
+  associate_public_ip_address = true
+  availability_zone           = "us-east-1a"
+  subnet_id                   = aws_subnet.public_1.id
+  vpc_security_group_ids      = [aws_security_group.bastion.id]
+  key_name                    = "maintenance"
+  tags = {
+    Name = "Bastion"
+  }
+
+  provider = aws.virginia
 }
