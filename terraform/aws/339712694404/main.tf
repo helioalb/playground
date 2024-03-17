@@ -4,4 +4,6 @@ resource "aws_vpc" "spree" {
   tags = {
     Name: "Spree"
   }
+
+  provider = aws.virginia
 }
