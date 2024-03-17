@@ -169,3 +169,38 @@ resource "aws_vpc_security_group_ingress_rule" "postgres_ingress_from_bastion" {
 
   provider = aws.virginia
 }
+
+resource "aws_db_subnet_group" "database_subnet_group" {
+  name        = "database-subnet-group"
+  subnet_ids  = [aws_subnet.private_1.id, aws_subnet.private_2.id]
+  description = "Database subnet group"
+
+  tags = {
+    Name = "Subnets"
+  }
+}
+
+resource "aws_db_instance" "postgres" {
+  allocated_storage           = 20
+  allow_major_version_upgrade = false
+  auto_minor_version_upgrade  = false
+  backup_retention_period     = 2
+  backup_window               = "01:00-03:00"
+  maintenance_window          = "Mon:03:00-Mon:05:00"
+  identifier                  = "postgres"
+  db_name                     = "admindb"
+  engine                      = "postgres"
+  engine_version              = "16.1"
+  instance_class              = "db.t3.micro"
+  username                    = "foo"
+  password                    = "foobarbaz"
+  skip_final_snapshot         = true
+  db_subnet_group_name        = aws_db_subnet_group.database_subnet_group.name
+  vpc_security_group_ids      = [aws_security_group.postgres.id]
+
+  tags = {
+    Name = " Postgres 16.1"
+  }
+
+  provider = aws.virginia
+}
