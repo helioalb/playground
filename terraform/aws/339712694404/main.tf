@@ -53,3 +53,13 @@ resource "aws_subnet" "private_2" {
 
   provider = aws.virginia
 }
+
+resource "aws_internet_gateway" "ig" {
+  vpc_id = aws_vpc.spree.id
+
+  tags = {
+    Name = "Spree Internet Gateway"
+  }
+
+  provider = aws.virginia
+}
