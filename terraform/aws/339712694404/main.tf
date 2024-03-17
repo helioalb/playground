@@ -88,3 +88,39 @@ resource "aws_route_table_association" "public_2" {
   subnet_id      = aws_subnet.public_2.id
   route_table_id = aws_route_table.second_rt.id
 }
+
+resource "aws_security_group" "bastion" {
+  name        = "bastion-sg"
+  description = "Bastion traffic"
+  vpc_id      = aws_vpc.spree.id
+
+  tags = {
+    Name = "bastion-sg"
+  }
+
+  provider = aws.virginia
+}
+
+resource "aws_vpc_security_group_ingress_rule" "bastion_ssh" {
+  security_group_id = aws_security_group.bastion.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+  description       = "SSH"
+
+  tags = {
+    Name = "SSH"
+  }
+}
+
+resource "aws_vpc_security_group_egress_rule" "allow_all_traffic_ipv4" {
+  security_group_id = aws_security_group.bastion.id
+  cidr_ipv4         = "0.0.0.0/0"
+  ip_protocol       = "-1" # semantically equivalent to all ports
+  description       = "All traffic"
+
+  tags = {
+    Name = "All traffic"
+  }
+}
