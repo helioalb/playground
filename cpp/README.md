@@ -1,5 +1,8 @@
 To compile:
 
 ```shell
-g++ hello_world.cpp -o hello_world
+g++ -std=c++11 -O2 -Wall -o type types.cpp
 ```
+
+**02** - Optimize
+**Wall** - Warning all
