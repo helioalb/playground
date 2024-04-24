@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>On change</title>
+</head>
+<body>
+  <form action="" onchange="sayHello(event)">
+    <label for="name">Nome</label>
+    <input type="text" name="fname" id="name" autocomplete="name">
+
+    <label for="age">Idade</label>
+    <input type="age" name="age" id="age">
+  </form>
+</body>
+
+<script>
+  function sayHello(e) {
+    console.log(e.complete)
+  }
+</script>
+</html>
