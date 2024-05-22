@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    body, .father, .child {
+      margin: 0;
+      padding: 0;
+    }
+
+    .father {
+      width: 500px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .child {
+      width: 100px;
+      height: 100px;
+    }
+
+    .red {
+      background-color: red;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    .blue {
+      background-color: blue;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="father">
+    <div class="child red">1</div>
+    <div class="child green">2</div>
+    <div class="child blue">3</div>
+  </div>
+</body>
+</html>
